@@ -146,11 +146,24 @@ nav{
   text-align:center;line-height:1.4;
 }
 .hero-price-row{
-  display:flex;align-items:baseline;gap:10px;
-  margin-bottom:6px;
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:6px;flex-wrap:wrap;
 }
 .hero-price{font-size:36px;font-weight:900;color:var(--gold);}
 .hero-price-note{font-size:14px;opacity:0.7;}
+.discount-badge{
+  display:inline-flex;align-items:center;justify-content:center;
+  background:#e63a2e;color:#fff;
+  font-size:16px;font-weight:900;
+  padding:5px 11px;border-radius:50px;
+  letter-spacing:0.02em;
+  animation:badgePop .4s cubic-bezier(.36,1.56,.64,1) both;
+  box-shadow:0 2px 8px rgba(230,58,46,.35);
+}
+@keyframes badgePop{
+  0%{transform:scale(0.5);opacity:0;}
+  100%{transform:scale(1);opacity:1;}
+}
 .btn-primary{
   display:block;width:100%;
   background:var(--gold);color:#1a1a1a;
@@ -642,7 +655,8 @@ footer .footer-legal{margin-top:10px;font-size:11px;opacity:0.5;line-height:1.6;
       <h1>Морски колаген за <em>кожа, стави</em> и коса</h1>
       <p class="hero-sub">Principium Collagene Marino – <strong>2500 мг Naticol® хидролизиран колаген тип 1</strong> + хиалуронова киселина + витамин C + пролин. Научно доказан, с висока бионаличност.</p>
       <div class="hero-price-row">
-        <div class="hero-price">44,94 €</div>
+        <div class="hero-price">31,46 € <span style="font-size:20px;font-weight:400;text-decoration:line-through;opacity:0.55;">44,94 €</span></div>
+        <span class="discount-badge">−30%</span>
         <div class="hero-price-note">/ 80 таблетки</div>
       </div>
       <button class="btn-primary" onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})">🛒 Поръчай сега →</button>
@@ -957,7 +971,7 @@ footer .footer-legal{margin-top:10px;font-size:11px;opacity:0.5;line-height:1.6;
       <div id="form-wrap">
         <div class="price-box">
           <div class="price-box-label">Principium Collagene Marino<br><small>80 таблетки – 20-дневен курс</small></div>
-          <div class="price-box-price">44,94 €</div>
+          <div class="price-box-price">31,46 € <span style="font-size:15px;font-weight:400;text-decoration:line-through;opacity:0.5;">44,94 €</span></div>
         </div>
         <div class="form-group">
           <label>Две имена *</label>
@@ -971,7 +985,7 @@ footer .footer-legal{margin-top:10px;font-size:11px;opacity:0.5;line-height:1.6;
           <label>Имейл адрес *</label>
           <input type="email" id="f-email" placeholder="" autocomplete="email">
         </div>
-        <button class="btn-order" onclick="submitOrder()">🛒 Поръчай – 44,94 €</button>
+        <button class="btn-order" onclick="submitOrder()">🛒 Поръчай – 31,46 €</button>
         <p class="form-note">
           🔒 Данните ви са защитени · Плащане при доставка · Без предплащане<br>
           <a href="https://amalife.eu/page/privacy-policy" target="_blank">Политика за поверителност</a>
@@ -1037,7 +1051,7 @@ footer .footer-legal{margin-top:10px;font-size:11px;opacity:0.5;line-height:1.6;
 
 <!-- ===== STICKY ORDER (mobile) ===== -->
 <div class="sticky-order">
-  <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})">🛒 Поръчай сега – 44,94 €</button>
+  <button onclick="document.getElementById('order-form').scrollIntoView({behavior:'smooth'})">🛒 Поръчай сега – 31,46 €</button>
 </div>
 
 <script>
@@ -1069,19 +1083,19 @@ function submitOrder() {
   // 1. GTM dataLayer
   try {
     window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({event:'purchase1', value:44.94, currency:'EUR'});
+    window.dataLayer.push({event:'purchase1', value:31.46, currency:'EUR'});
   } catch(e){}
 
   // 2. Facebook Pixel Purchase
   try {
-    fbq('track','Purchase',{value:44.94, currency:'EUR'});
+    fbq('track','Purchase',{value:31.46, currency:'EUR'});
   } catch(e){}
 
   // 3. Google Ads conversion
   try {
     gtag('event','conversion',{
       'send_to':'AW-17746209020/purchase',
-      'value':44.94,
+      'value':31.46,
       'currency':'EUR',
       'transaction_id':''
     });
@@ -1099,7 +1113,7 @@ function submitOrder() {
     fd.append('name', name);
     fd.append('phone', phone);
     fd.append('email', email);
-    fd.append('product','Principium Collagene Marino 80 таб – 44.94 EUR');
+    fd.append('product','Principium Collagene Marino 80 таб – 31.46 EUR');
     fetch('https://api.web3forms.com/submit',{method:'POST',body:fd})
       .catch(function(e){console.warn('Web3forms error:',e);});
   })();
